@@ -13,7 +13,7 @@ const IconLink = ({ children, path, isActive, className, Icon }) => {
       href={path}
     >
       <Icon type={isActive ? 'secondary' : 'primary'} />
-      <span className={cn('pl-2', styles.text)}>{children}</span>
+      <span className={cn('pl-2 text_type_main-default')}>{children}</span>
     </a>
   );
 };
