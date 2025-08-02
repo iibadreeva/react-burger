@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import {
   Button,
@@ -7,13 +8,10 @@ import {
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { data } from '../../utils/data';
-
 import styles from './burger-constructor.module.css';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ data }) => {
   const sum = 610;
-  var img = '';
 
   return (
     <section className={cn('pt-25', styles.main)}>
@@ -60,6 +58,17 @@ const BurgerConstructor = () => {
       </footer>
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      __id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default BurgerConstructor;
