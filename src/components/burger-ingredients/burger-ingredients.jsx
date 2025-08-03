@@ -1,4 +1,11 @@
-import React, { useState, useMemo, memo, useRef } from 'react';
+import React, {
+  useState,
+  useMemo,
+  memo,
+  useRef,
+  useEffect,
+  useCallback
+} from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -12,32 +19,72 @@ import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = ({ data }) => {
   const [currentTab, setCurrentTab] = useState('bun');
+  const containerRef = useRef(null);
 
   const tabRefs = {
-    'bun': useRef(null),
-    'sauce': useRef(null),
-    'main': useRef(null),
+    bun: useRef(null),
+    sauce: useRef(null),
+    main: useRef(null)
   };
 
-  const handleTabChange = (tab) => {
+  const handleTabChange = useCallback((tab) => {
     setCurrentTab(tab);
-    tabRefs[tab].current.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }
+    tabRefs[tab].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   const groupData = useMemo(() => {
     return data.reduce((acc, current) => {
-      tabs.forEach(({type}) => {
-        if(acc[type] && type === current.type){
+      tabs.forEach(({ type }) => {
+        if (acc[type] && type === current.type) {
           acc[type].push(current);
-        }else if(type === current.type) {
+        } else if (type === current.type) {
           acc[type] = [current];
         }
-      })
+      });
 
-      return acc
-    }, {})
-  }, [data]);
+      return acc;
+    }, {});
+  }, []);
 
+  const scrollHandler = () => {
+    if (
+      !tabRefs['bun'].current ||
+      !tabRefs['sauce'].current ||
+      !tabRefs['main'].current ||
+      !containerRef.current
+    ) {
+      return;
+    }
+
+    const scrollTop = containerRef.current.getBoundingClientRect().top;
+    const bunTop = Math.abs(
+      tabRefs['bun'].current.getBoundingClientRect().top - scrollTop
+    );
+    const sauceTop = Math.abs(
+      tabRefs['sauce'].current.getBoundingClientRect().top - scrollTop
+    );
+    const mainTop = Math.abs(
+      tabRefs['main'].current.getBoundingClientRect().top - scrollTop
+    );
+
+    const min = Math.min(bunTop, sauceTop, mainTop);
+
+    if (min === bunTop) {
+      setCurrentTab('bun');
+    } else if (min === sauceTop) {
+      setCurrentTab('sauce');
+    } else {
+      setCurrentTab('main');
+    }
+  };
+
+  useEffect(() => {
+    const content = document.querySelector('#control');
+    content.addEventListener('scroll', scrollHandler, true);
+    return () => {
+      content.removeEventListener('scroll', scrollHandler, true);
+    };
+  }, []);
 
   return (
     <section className={styles.main}>
@@ -45,18 +92,23 @@ const BurgerIngredients = ({ data }) => {
 
       <Tabs data={tabs} current={currentTab} onClick={handleTabChange} />
 
-      <div className={cn('custom-scroll', styles.wrap)}>
-        {tabs.map(({ title, type }) =><SectionIngredient key={type} currentTab={type} title={title} data={groupData} tabRefs={tabRefs} />)}
+      <div className={cn('custom-scroll', styles.wrap)} ref={containerRef}>
+        {tabs.map(({ title, type }) => (
+          <SectionIngredient
+            key={type}
+            currentTab={type}
+            title={title}
+            data={groupData}
+            tabRefs={tabRefs}
+          />
+        ))}
       </div>
-
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(
-    dataPropTypes
-  ).isRequired
+  data: PropTypes.arrayOf(dataPropTypes).isRequired
 };
 
 const BurgerIngredientWrap = memo(BurgerIngredients);

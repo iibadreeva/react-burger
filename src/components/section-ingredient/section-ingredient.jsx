@@ -8,10 +8,11 @@ import {
 import styles from './section-ingredient.module.css';
 
 const SectionIngredient = ({ data, title, currentTab, tabRefs }) => {
-
   return (
     <>
-      <h3 className="text text_type_main-medium mb-6" ref={tabRefs[currentTab]}>{title}</h3>
+      <h3 className="text text_type_main-medium mb-6" ref={tabRefs[currentTab]}>
+        {title}
+      </h3>
 
       <ul className={cn('pt-6 pl-4 pr-4 pb-10', styles.content)}>
         {data[currentTab].map(({ _id, name, price, image }) => (
