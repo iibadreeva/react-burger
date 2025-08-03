@@ -7,13 +7,14 @@ import {
 
 import styles from './section-ingredient.module.css';
 
-const SectionIngredient = ({ data, title }) => {
+const SectionIngredient = ({ data, title, currentTab, tabRefs }) => {
+
   return (
-    <article className={cn('custom-scroll', styles.wrap)}>
-      <h3 className="text text_type_main-medium mb-6">{title}</h3>
+    <>
+      <h3 className="text text_type_main-medium mb-6" ref={tabRefs[currentTab]}>{title}</h3>
 
       <ul className={cn('pt-6 pl-4 pr-4 pb-10', styles.content)}>
-        {data.map(({ _id, name, price, image }) => (
+        {data[currentTab].map(({ _id, name, price, image }) => (
           <li key={_id} className={cn(styles.list)}>
             <Counter count={1} size="default" />
 
@@ -36,7 +37,7 @@ const SectionIngredient = ({ data, title }) => {
           </li>
         ))}
       </ul>
-    </article>
+    </>
   );
 };
 

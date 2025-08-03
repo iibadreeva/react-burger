@@ -9,6 +9,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-constructor.module.css';
+import { dataPropTypes } from '../../utils/types';
 
 const BurgerConstructor = ({ data }) => {
   const sum = 610;
@@ -18,10 +19,13 @@ const BurgerConstructor = ({ data }) => {
       <ul className={cn('mt-4 mb-10 custom-scroll', styles.content)}>
         {data.map(({ _id, name, price, image }, inx) => {
           let type = undefined;
+          let text = name
           if (inx === 0) {
             type = 'top';
+            text += ' (верх)'
           } else if (inx === data.length - 1) {
             type = 'bottom';
+            text += ' (низ)'
           }
 
           return (
@@ -35,8 +39,8 @@ const BurgerConstructor = ({ data }) => {
 
               <ConstructorElement
                 extraClass="mb-4"
-                isLocked={false}
-                text={name}
+                isLocked={!!type}
+                text={text}
                 price={price}
                 thumbnail={image}
                 type={type}
@@ -62,12 +66,7 @@ const BurgerConstructor = ({ data }) => {
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.shape({
-      __id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired
-    })
+    dataPropTypes
   ).isRequired
 };
 

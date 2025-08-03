@@ -4,7 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './tabs.module.css';
 
-const Tabs = ({ data, current, setCurrent }) => {
+const Tabs = ({ data, current, onClick }) => {
   return (
     <div className={cn('mb-10', styles.tab)}>
       {data.map(({ title, index, type }) => (
@@ -12,7 +12,7 @@ const Tabs = ({ data, current, setCurrent }) => {
           key={index}
           value={type}
           active={current === type}
-          onClick={setCurrent}
+          onClick={onClick}
         >
           {title}
         </Tab>
