@@ -1,0 +1,36 @@
+.main {
+    width: 50%;
+}
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.icon {
+    width: 36px;
+    height: 36px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 350px);
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.iconDrag {
+    position: relative;
+    top: -5px
+}

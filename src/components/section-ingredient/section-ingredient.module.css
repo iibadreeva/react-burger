@@ -1,0 +1,37 @@
+.content {
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 32px;
+    margin: 0;
+}
+
+.list {
+    position: relative;
+    list-style: none;
+    width: 272px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.list:hover img {
+    transform: scale(1.2);
+    transition: .3s all ease-in;
+}
+
+.image {
+    width: 240px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.priceBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price {
+    font-weight: 400;
+}

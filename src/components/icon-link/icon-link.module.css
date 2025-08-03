@@ -1,0 +1,18 @@
+.link {
+    display: flex;
+    border-radius: 40px;
+    text-decoration: none;
+    align-items: center;
+}
+
+.link:hover {
+    background: #2f2f37;
+}
+
+.primary {
+    color: white;
+}
+
+.secondary {
+    color: #8585AD;
+}
