@@ -1,15 +1,15 @@
-import React, { memo } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './tabs.module.css';
 
-const Tabs = memo(({ data, current, onClick }) => {
+const Tabs = ({ data, current, onClick }) => {
   return (
     <div className={cn('mb-10', styles.tab)}>
-      {data.map(({ title, index, type }) => (
+      {data.map(({ title, type }) => (
         <Tab
-          key={index}
+          key={type}
           value={type}
           active={current === type}
           onClick={onClick}
@@ -19,6 +19,6 @@ const Tabs = memo(({ data, current, onClick }) => {
       ))}
     </div>
   );
-});
+};
 
 export default Tabs;

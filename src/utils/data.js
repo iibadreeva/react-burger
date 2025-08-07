@@ -216,17 +216,14 @@ export const data = [
 export const tabs = [
   {
     title: 'Булки',
-    index: 'one',
     type: 'bun'
   },
   {
     title: 'Соусы',
-    index: 'two',
     type: 'sauce'
   },
   {
     title: 'Начинки',
-    index: 'three',
     type: 'main'
   }
 ];
