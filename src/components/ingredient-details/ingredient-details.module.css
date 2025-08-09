@@ -1,0 +1,13 @@
+
+.footer {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

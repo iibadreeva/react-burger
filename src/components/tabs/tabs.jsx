@@ -7,9 +7,9 @@ import styles from './tabs.module.css';
 const Tabs = ({ data, current, onClick }) => {
   return (
     <div className={cn('mb-10', styles.tab)}>
-      {data.map(({ title, index, type }) => (
+      {data.map(({ title, type }) => (
         <Tab
-          key={index}
+          key={type}
           value={type}
           active={current === type}
           onClick={onClick}
