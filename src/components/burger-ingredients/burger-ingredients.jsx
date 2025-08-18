@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Tabs from '../tabs/tabs';
 import SectionIngredient from '../section-ingredient/section-ingredient';
-// import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import { useScroll } from '../../hooks/use-scroll';
@@ -17,7 +16,7 @@ import styles from './burger-ingredients.module.css';
 const BurgerIngredients = ({ data }) => {
   const [currentTab, setCurrentTab] = useState('bun');
   const containerRef = useRef(null);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [burger, setBurger] = useState(null);
 
   const tabRefs = useRef(
@@ -61,8 +60,6 @@ const BurgerIngredients = ({ data }) => {
 
   return (
     <section className={styles.main}>
-      {/*{isModalOpen && <OrderDetails onClose={closeModal} number={'034536'} />}*/}
-
       {isModalOpen && burger && (
         <IngredientDetails
           onClose={closeModal}

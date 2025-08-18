@@ -1,3 +1,4 @@
+// @ts-ignore
 import PropTypes from 'prop-types';
 
 export const dataPropTypes = PropTypes.shape({
@@ -11,3 +12,23 @@ export const dataPropTypes = PropTypes.shape({
   fat: PropTypes.string.isRequired,
   carbohydrates: PropTypes.string.isRequired
 });
+
+export const enum INGREDIENT_TYPE {
+  Bun = 'bun',
+  Sauce = 'sauce',
+  Main = 'main'
+}
+
+export type IngredientType = {
+  _id: string;
+  carbohydrates: number;
+  calories: number;
+  fat: number;
+  image: string;
+  image_mobile: string;
+  image_large: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: INGREDIENT_TYPE;
+};
