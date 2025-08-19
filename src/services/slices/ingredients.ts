@@ -20,8 +20,7 @@ export const fetchIngredients = createAsyncThunk(
   async (options: RequestInit = {}) => {
     return api
       .get('ingredients', options)
-      .then((ingredients) => ingredients.data)
-      .catch((error) => Promise.reject(error));
+      .then((ingredients) => ingredients.data);
   }
 );
 

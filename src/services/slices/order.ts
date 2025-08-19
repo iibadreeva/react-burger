@@ -29,10 +29,7 @@ export const sendOrder = createAsyncThunk(
     const data = {
       ingredients: ids
     };
-    return api
-      .post('orders', data)
-      .then((res) => res?.order?.number)
-      .catch((error) => Promise.reject(error));
+    return api.post('orders', data).then((res) => res?.order?.number);
   }
 );
 

@@ -1,5 +1,4 @@
 import React, { useState, memo, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 import {
   Button,
@@ -20,14 +19,13 @@ import {
   reset
 } from '../../services/slices/order';
 
-import { dataPropTypes } from '../../utils/types';
-
 import styles from './burger-constructor.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
 
+  const data = useAppSelector((state) => state.ingredients.data);
   const { order, bun, ingredients, isLoading, error } = useAppSelector(
     (state) => state.order
   );
@@ -123,12 +121,7 @@ const BurgerConstructor = ({ data }) => {
           </li>
         )}
         {items.map((item, index) => (
-          <IngredientList
-            key={item.uniqueId}
-            item={item}
-            // index={bun ? index - 1 : index}
-            index={index}
-          />
+          <IngredientList key={item.uniqueId} item={item} index={index} />
         ))}
 
         {bunItem && (
@@ -168,10 +161,6 @@ const BurgerConstructor = ({ data }) => {
       </footer>
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataPropTypes).isRequired
 };
 
 export default memo(BurgerConstructor);
