@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiCall } from '../api/api-call';
+import { api } from '../api/api-call';
 
 export const useApiIngredients = () => {
   const [data, setData] = useState([]);
@@ -13,7 +13,8 @@ export const useApiIngredients = () => {
     setLoading(true);
     setError(false);
 
-    apiCall('ingredients', 'GET', signal)
+    api
+      .get('ingredients', { signal: signal })
       .then((ingredients) => {
         setData(ingredients.data);
 

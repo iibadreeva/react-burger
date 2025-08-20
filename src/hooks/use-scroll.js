@@ -34,5 +34,5 @@ export const useScroll = (refs, containerRef, activeTab, tabs) => {
     return () => {
       container.removeEventListener('scroll', scrollHandler, true);
     };
-  }, [refs, containerRef, activeTab]);
+  }, [refs, containerRef, activeTab, tabs]);
 };
