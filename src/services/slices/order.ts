@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { api } from '../../api/api-call';
+import { getCookie } from '../../utils/cookie';
 
 type IngredientType = {
   id: string;
@@ -20,24 +21,26 @@ const initialState: OrderType = {
   ingredients: [],
   bun: null,
   isLoading: false,
-  error: null
+  error: null,
 };
 
-export const sendOrder = createAsyncThunk(
-  'order/sendOrder',
-  async (ids: string[]) => {
-    const data = {
-      ingredients: ids
-    };
-    return api.post('orders', data).then((res) => res?.order?.number);
-  }
-);
+export const sendOrder = createAsyncThunk('order/sendOrder', async (ids: string[]) => {
+  const data = {
+    ingredients: ids,
+  };
+  const options: any = {
+    headers: {
+      authorization: getCookie('token'),
+    },
+  };
+  return api.post('/orders', data, options).then(res => res?.order?.number);
+});
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    reset: (state) => {
+    reset: state => {
       state.order = null;
       state.isLoading = false;
       state.error = null;
@@ -57,14 +60,12 @@ const orderSlice = createSlice({
       state.ingredients.splice(hoverIndex, 0, draggedItem);
     },
     removeIngredient: (state, action) => {
-      state.ingredients = state.ingredients.filter(
-        (item) => item.uniqueId !== action.payload
-      );
-    }
+      state.ingredients = state.ingredients.filter(item => item.uniqueId !== action.payload);
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(sendOrder.pending, (state) => {
+      .addCase(sendOrder.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -76,15 +77,10 @@ const orderSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Произошла ошибка';
       });
-  }
+  },
 });
 
-export const {
-  reset,
-  addBun,
-  addIngredient,
-  moveIngredient,
-  removeIngredient
-} = orderSlice.actions;
+export const { reset, addBun, addIngredient, moveIngredient, removeIngredient } =
+  orderSlice.actions;
 
 export default orderSlice.reducer;

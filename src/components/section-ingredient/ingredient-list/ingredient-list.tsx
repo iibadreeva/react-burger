@@ -1,14 +1,22 @@
-import React from 'react';
+import { FC } from 'react';
 import cn from 'classnames';
 import { useDrag } from 'react-dnd';
 import {
   Counter,
   CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from '../section-ingredient.module.css';
-import { useAppSelector } from '../../../services/store';
 
-const IngredientList = ({ item, handleChoseBurger }) => {
+import { useAppSelector } from '../../../services/store';
+import { IngredientType } from '../../../utils/types';
+
+import styles from '../section-ingredient.module.css';
+
+type Props = {
+  item: IngredientType;
+  handleChoseBurger: (item: IngredientType) => void;
+};
+
+const IngredientList: FC<Props> = ({ item, handleChoseBurger }) => {
   const { ingredients, bun } = useAppSelector((state) => state.order);
 
   const { _id, name, price, image } = item;
@@ -37,7 +45,7 @@ const IngredientList = ({ item, handleChoseBurger }) => {
       className={cn(styles.list)}
       onClick={() => handleChoseBurger(item)}
       style={{ opacity }}
-      ref={ref}
+      ref={ref as any}
     >
       {count > 0 && <Counter count={count} size="default" />}
 

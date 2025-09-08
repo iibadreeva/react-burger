@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import cn from 'classnames';
 
 import Modal from '../modal/modal';
@@ -5,9 +6,13 @@ import Modal from '../modal/modal';
 import img from '../../images/done.svg';
 
 import styles from './order-details.module.css';
-import PropTypes from 'prop-types';
 
-const OrderDetails = ({ onClose, number }) => {
+type Props = {
+  number: number;
+  onClose: () => void;
+};
+
+const OrderDetails: FC<Props> = ({ onClose, number }) => {
   return (
     <Modal onClose={onClose}>
       <div className={cn('pt-30 pb-30 pr-25 pl-25', styles.modal)}>
@@ -31,11 +36,6 @@ const OrderDetails = ({ onClose, number }) => {
       </div>
     </Modal>
   );
-};
-
-OrderDetails.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  number: PropTypes.string.isRequired
 };
 
 export default OrderDetails;

@@ -1,46 +1,94 @@
-# Getting Started with Create React App
+## Макеты:
+- [Макет главной страницы](https://www.figma.com/design/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=0-1&p=f&t=PNxY791FxC5V9qk8-0)
+- [Макет авторизации](https://www.figma.com/design/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=6291-2799&p=f&t=IOchfaDWmpYKQx2S-0)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## UI-библиотеки:
+[Готовые компоненты](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)
 
-## Available Scripts
 
-In the project directory, you can run:
-
+Запустить локальный сервер
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
+Собрать проект
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Реализация перетаскивания ингредиентов
+- Пользователь может добавить ингредиент из BurgerIngredients в компонент BurgerConstructor.
+- При успешном перетаскивании у ингредиента в BurgerConstructor увеличивается счётчик. Перетаскивать ингредиент (не являющийся булкой) можно многократно.
+- Пользователь может нажать на иконку удаления ингредиента в компоненте BurgerConstructor. Ингредиент удалится из BurgerConstructor, а счётчик количества ингредиентов в компоненте BurgerIngredients уменьшится на один.
+- Если в BurgerConstructor добавлено несколько одинаковых ингредиентов — удаление одного ингредиента не влияет на остальные ингредиенты в BurgerConstructor с тем же _id.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Страницы авторизации и регистрации
+- На экране /login клик на «Зарегистрироваться» направляет пользователя на маршрут /register.
+- На экране /login клик на «Восстановить пароль» направляет пользователя на маршрут /forgot-password.
+- На экране /register клик на «Войти» направляет пользователя на маршрут /login.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Страницы восстановления и сброса пароля
+- На экране /forgot-password пользователь вводит адрес электронной почты и нажимает кнопку «Восстановить». После этого происходит POST запрос к эндпоинту https://norma.nomoreparties.space/api/password-reset.
+  - Тело запроса:
+    ```
+    {
+      "email": ""
+    } 
+    ```
+  - Тело успешного ответа:
+    ```
+    {
+      "success": true,
+      "message": "Reset email sent"
+    }
+    ```
+- На экране /reset-password пользователь вводит новый пароль и код из имейла, а после нажимает кнопку «Сохранить». После этого происходит POST запрос к эндпоинту https://norma.nomoreparties.space/api/password-reset/reset.
+    - Тело запроса:
+      ```
+      {
+        "password": "",
+        "token": ""
+      } 
+      ```
+    - Тело успешного ответа:
+      ```
+      {
+        "success": true,
+        "message": "Password successfully reset"
+      }
+      ```
+- Для реализации этой функциональности потребуется создать пользователя. Вы можете сделать это, отправив POST запрос к эндпоинту https://norma.nomoreparties.space/api/auth/register. Пример тела запроса:
+    ```
+    {
+      "email": "test-data@yandex.ru", 
+      "password": "password", 
+      "name": "Username"  
+    } 
+    ```
 
-### `npm run eject`
+### Страница профиля пользователя
+- При попадании на эту страницу профиля сначала открывается маршрут /profile.
+- Клик по кнопке «История заказов» отправляет пользователя на маршрут /profile/orders и делает активной ссылку «История заказов».
+- Клик по заказу в «Истории заказов» переносит пользователя на экран /profile/orders/:number.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Авторизация и регистрация
+Вот список эндпоинтов, к которым потребуется делать запросы:
+```
+POST https://norma.nomoreparties.space/api/auth/login - эндпоинт для авторизации.
+POST https://norma.nomoreparties.space/api/auth/register - эндпоинт для регистрации пользователя.
+POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
+POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Получение и обновление информации о пользователе
+Вот список эндпоинтов, к которым потребуется делать запросы:
+```
+GET https://norma.nomoreparties.space/api/auth/user - эндпоинт получения данных о пользователе.
+PATCH https://norma.nomoreparties.space/api/auth/user - эндпоинт обновления данных о пользователе.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Защищённые маршруты в приложении
+Куда не может попасть неавторизованный пользователь:
+- Маршрут /profile.
+- Все вложенные в /profile маршруты.
+- Все остальные маршруты не защищены.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Куда не может попасть авторизованный пользователь:
+- Маршруты /login и /register.
+- Маршруты /forgot-password и /reset-password.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

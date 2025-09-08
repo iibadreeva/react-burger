@@ -8,6 +8,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IconLink from '../icon-link/icon-link';
+import { ROUTES } from '../../constants';
 
 import styles from './app-header.module.css';
 
@@ -17,17 +18,12 @@ const AppHeader = () => {
       <div className={styles.inner}>
         <nav className={styles.nav}>
           <li>
-            <IconLink
-              path="/"
-              isActive={false}
-              className="mr-2"
-              Icon={BurgerIcon}
-            >
+            <IconLink path={ROUTES.ROOT} className="mr-2" Icon={BurgerIcon}>
               Конструктор
             </IconLink>
           </li>
           <li>
-            <IconLink path="/" isActive={true} className="mr-2" Icon={ListIcon}>
+            <IconLink path={ROUTES.ORDER} className="mr-2" Icon={ListIcon}>
               Лента заказов
             </IconLink>
           </li>
@@ -35,7 +31,7 @@ const AppHeader = () => {
 
         <Logo />
 
-        <IconLink path="/" isActive={true} className="mr-2" Icon={ProfileIcon}>
+        <IconLink path={ROUTES.PROFILE} className="mr-2" Icon={ProfileIcon}>
           Личный кабинет
         </IconLink>
       </div>

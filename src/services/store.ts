@@ -3,13 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import ingredients from './slices/ingredients';
 import order from './slices/order';
+import user from './slices/user';
 
 const store = configureStore({
   reducer: {
     ingredients,
-    order
+    order,
+    user,
   },
-  devTools: process.env.NODE_ENV !== 'production'
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>;

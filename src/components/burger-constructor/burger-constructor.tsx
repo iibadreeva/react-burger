@@ -1,34 +1,31 @@
-import React, { useState, memo, useMemo } from 'react';
-import cn from 'classnames';
+import React, { memo, useMemo, useState } from 'react';
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon
+  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import cn from 'classnames';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
-import OrderDetails from '../order-details/order-details';
-import IngredientList from './ingredient-list/ingredient-list';
-
-import {
-  sendOrder,
-  addBun,
-  addIngredient,
-  reset
-} from '../../services/slices/order';
-
-import styles from './burger-constructor.module.css';
+import { ROUTES } from '../../constants';
+import { addBun, addIngredient, reset, sendOrder } from '../../services/slices/order';
 import { useAppDispatch, useAppSelector } from '../../services/store';
+import { IngredientType } from '../../utils/types';
+import OrderDetails from '../order-details/order-details';
+import styles from './burger-constructor.module.css';
+import IngredientList from './ingredient-list/ingredient-list';
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const data = useAppSelector((state) => state.ingredients.data);
-  const { order, bun, ingredients, isLoading, error } = useAppSelector(
-    (state) => state.order
-  );
+  const data = useAppSelector(state => state.ingredients.data);
+  const { order, bun, ingredients, isLoading, error } = useAppSelector(state => state.order);
+  const isAuth = useAppSelector(state => state.user.isAuth);
+
   const [isModalOpen, setIsModalOpen] = useState(!!order);
 
   const closeModal = () => {
@@ -37,28 +34,32 @@ const BurgerConstructor = () => {
   };
 
   const handleShowModal = () => {
-    setIsModalOpen(true);
-
-    const ids = allItems.reduce((acc, { _id }) => acc.concat(_id), []);
-    dispatch(sendOrder(ids));
+    if (isAuth) {
+      const ids: string[] = allItems.reduce((acc: string[], { _id }) => acc.concat(_id), []);
+      setIsModalOpen(true);
+      dispatch(sendOrder(ids));
+    } else {
+      navigate(ROUTES.LOGIN);
+    }
   };
 
-  const [_, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+
+    drop(item: IngredientType) {
       if (item.type === 'bun') {
         dispatch(addBun(item._id));
       } else {
         dispatch(addIngredient({ id: item._id, uniqueId: uuid() }));
       }
-    }
+    },
   });
 
-  const bunItem = data.find((ingredient) => ingredient._id === bun);
+  const bunItem = data.find(ingredient => ingredient._id === bun);
 
   const { items, sum, allItems } = useMemo(() => {
-    const items = ingredients.reduce((acc, current) => {
-      data.forEach((ingredient) => {
+    const items: IngredientType[] = ingredients.reduce((acc: IngredientType[], current) => {
+      data.forEach(ingredient => {
         if (ingredient._id === current.id) {
           const newItem = { ...ingredient };
 
@@ -80,36 +81,24 @@ const BurgerConstructor = () => {
     return {
       items,
       sum,
-      allItems
+      allItems,
     };
   }, [bunItem, data, ingredients]);
 
   return (
     <section className={cn('pt-25', styles.main)}>
-      {!error && !isLoading && isModalOpen && (
+      {!error && !isLoading && isModalOpen && order && (
         <OrderDetails onClose={closeModal} number={order} />
       )}
 
-      <ul
-        ref={dropTarget}
-        className={cn('mt-4 mb-10 custom-scroll', styles.content)}
-      >
-        {!bun && (
-          <li className={cn('mb-2', styles.titleList)}>
-            перенесите сюда булки
-          </li>
-        )}
+      <ul ref={dropTarget as any} className={cn('custom-scroll mt-4 mb-10', styles.content)}>
+        {!bun && <li className={cn('mb-2', styles.titleList)}>перенесите сюда булки</li>}
         {ingredients.length === 0 && (
-          <li className={cn('mb-2', styles.titleList)}>
-            перенесите сюда ингредиенты
-          </li>
+          <li className={cn('mb-2', styles.titleList)}>перенесите сюда ингредиенты</li>
         )}
         {bunItem && (
           <li className={styles.list}>
-            <DragIcon
-              className={cn('mr-2', styles.iconDrag, styles.hidden)}
-              type="primary"
-            />
+            <DragIcon className={cn('mr-2', styles.iconDrag, styles.hidden)} type="primary" />
             <ConstructorElement
               extraClass="mb-4 "
               isLocked={true}
@@ -126,10 +115,7 @@ const BurgerConstructor = () => {
 
         {bunItem && (
           <li className={styles.list}>
-            <DragIcon
-              className={cn('mr-2', styles.iconDrag, styles.hidden)}
-              type="primary"
-            />
+            <DragIcon className={cn('mr-2', styles.iconDrag, styles.hidden)} type="primary" />
             <ConstructorElement
               extraClass="mb-4 "
               isLocked={true}
@@ -146,14 +132,11 @@ const BurgerConstructor = () => {
 
       <footer className={styles.footer}>
         <div className="text text_type_digits-medium">{sum}</div>
-        <CurrencyIcon
-          className={cn('mr-10 ml-2', styles.icon)}
-          type={'primary'}
-        />
+        <CurrencyIcon className={cn('mr-10 ml-2', styles.icon)} type={'primary'} />
         <Button
           htmlType="button"
           type="primary"
-          disabled={!isLoading && !bun}
+          disabled={isLoading || !bun}
           onClick={handleShowModal}
         >
           {isLoading ? 'Заказ оформляется...' : 'Оформить заказ'}

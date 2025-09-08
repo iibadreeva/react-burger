@@ -1,6 +1,13 @@
 import { useEffect } from 'react';
 
-export const useScroll = (refs, containerRef, activeTab, tabs) => {
+import { TabType } from '../utils/types';
+
+export const useScroll = (
+  refs: any,
+  containerRef: any,
+  activeTab: (s: string) => void,
+  tabs: TabType[]
+) => {
   useEffect(() => {
     const scrollHandler = () => {
       if (!containerRef.current) {
@@ -15,8 +22,7 @@ export const useScroll = (refs, containerRef, activeTab, tabs) => {
         }
 
         const top = Math.abs(
-          refs?.current?.[type]?.current?.getBoundingClientRect().top -
-            scrollTop
+          refs?.current?.[type]?.current?.getBoundingClientRect().top - scrollTop
         );
 
         topArray.push(top);
