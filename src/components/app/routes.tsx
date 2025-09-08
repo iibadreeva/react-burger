@@ -47,7 +47,7 @@ export const routes = [
   {
     path: ROUTES.INGREDIENTS_ITEM,
     component: IngredientPage,
-    isPrivate: true,
+    isPrivate: false,
     exact: false,
   },
   {

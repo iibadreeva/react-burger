@@ -1,15 +1,15 @@
 import React from 'react';
-import cn from 'classnames';
 import {
-  Logo,
   BurgerIcon,
   ListIcon,
-  ProfileIcon
+  Logo,
+  ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
-import IconLink from '../icon-link/icon-link';
 import { ROUTES } from '../../constants';
-
+import IconLink from '../icon-link/icon-link';
 import styles from './app-header.module.css';
 
 const AppHeader = () => {
@@ -29,7 +29,9 @@ const AppHeader = () => {
           </li>
         </nav>
 
-        <Logo />
+        <Link to={ROUTES.ROOT}>
+          <Logo />
+        </Link>
 
         <IconLink path={ROUTES.PROFILE} className="mr-2" Icon={ProfileIcon}>
           Личный кабинет
