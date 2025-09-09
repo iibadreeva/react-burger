@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { api } from '../api/api-call';
 
 export const useApiIngredients = () => {
@@ -15,13 +16,13 @@ export const useApiIngredients = () => {
 
     api
       .get('ingredients', { signal: signal })
-      .then((ingredients) => {
+      .then(ingredients => {
         setData(ingredients.data);
 
         setLoading(false);
         setError(false);
       })
-      .catch((error) => {
+      .catch(error => {
         if (!signal?.aborted) {
           setError(true);
           setLoading(false);

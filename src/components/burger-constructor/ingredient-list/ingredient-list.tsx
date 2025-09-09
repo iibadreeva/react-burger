@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import cn from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import {
@@ -11,10 +11,16 @@ import {
   removeIngredient
 } from '../../../services/slices/order';
 import { useAppDispatch } from '../../../services/store';
+import { IngredientType } from '../../../utils/types';
 
 import styles from '../burger-constructor.module.css';
 
-const IngredientList = ({ item, index }) => {
+type Props = {
+  item: IngredientType;
+  index: number;
+};
+
+const IngredientList: FC<Props> = ({ item, index }) => {
   const dispatch = useAppDispatch();
   const { name, price, image_mobile, type, uniqueId } = item;
   const ref = React.useRef(null);
@@ -25,7 +31,7 @@ const IngredientList = ({ item, index }) => {
 
   const [, drop] = useDrop({
     accept: 'move',
-    hover(item, monitor) {
+    hover(item: IngredientType, monitor) {
       if (!ref.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;

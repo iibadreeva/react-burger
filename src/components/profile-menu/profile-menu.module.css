@@ -1,0 +1,26 @@
+
+.aside {
+    width: 320px;
+}
+
+.nav {
+    list-style: none;
+}
+
+.list {
+    height: 64px;
+    line-height: 64px;
+    color: var(--text-primary-color);
+}
+
+.link {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--text-inactive-color);
+    transition: .3s all ease-in;
+}
+
+
+.link:hover {
+    color: var(--text-primary-color);
+}

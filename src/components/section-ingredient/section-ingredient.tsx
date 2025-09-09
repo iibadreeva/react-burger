@@ -1,14 +1,21 @@
-import React from 'react';
+import { FC } from 'react';
 import cn from 'classnames';
-import PropTypes from 'prop-types';
 
 import IngredientList from './ingredient-list/ingredient-list';
 
-import { dataPropTypes } from '../../utils/types';
+import { IngredientType } from '../../utils/types';
 
 import styles from './section-ingredient.module.css';
 
-const SectionIngredient = ({
+type Props = {
+  data: any;
+  title: string;
+  currentTab: any;
+  tabRefs: any;
+  handleChoseBurger: (item: IngredientType) => void;
+};
+
+const SectionIngredient: FC<Props> = ({
   data,
   title,
   currentTab,
@@ -25,7 +32,7 @@ const SectionIngredient = ({
       </h3>
 
       <ul className={cn('pt-6 pl-4 pr-4 pb-10', styles.content)}>
-        {data[currentTab].map((item) => (
+        {data[currentTab].map((item: IngredientType) => (
           <IngredientList
             key={item._id}
             item={item}
@@ -35,14 +42,6 @@ const SectionIngredient = ({
       </ul>
     </>
   );
-};
-
-SectionIngredient.propTypes = {
-  data: dataPropTypes.isRequired,
-  title: PropTypes.string.isRequired,
-  currentTab: PropTypes.string.isRequired,
-  tabRefs: PropTypes.any.isRequired,
-  handleChoseBurger: PropTypes.func.isRequired
 };
 
 export default SectionIngredient;

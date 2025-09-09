@@ -1,51 +1,52 @@
-import React, { useState, useRef, createRef } from 'react';
+import React, { createRef, useRef, useState } from 'react';
 import cn from 'classnames';
-
-import Tabs from '../tabs/tabs';
-import SectionIngredient from '../section-ingredient/section-ingredient';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useScroll } from '../../hooks/use-scroll';
-
-import { tabs } from '../../utils/data';
 import { useAppSelector } from '../../services/store';
-
+import { tabs } from '../../utils/data';
+import { IngredientType } from '../../utils/types';
+import SectionIngredient from '../section-ingredient/section-ingredient';
+import Tabs from '../tabs/tabs';
 import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = () => {
-  const data = useAppSelector((state) => state.ingredients.data);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const data = useAppSelector(state => state.ingredients.data);
 
   const [currentTab, setCurrentTab] = useState('bun');
   const containerRef = useRef(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [burger, setBurger] = useState(null);
 
   const tabRefs = useRef(
-    tabs.reduce((acc, { type }) => {
+    tabs.reduce((acc: any, { type }) => {
       acc[type] = createRef();
       return acc;
     }, {})
   );
 
-  const handleTabChange = (tab) => {
+  const handleTabChange = (tab: string) => {
     setCurrentTab(tab);
     tabRefs.current[tab]?.current.scrollIntoView({
       behavior: 'smooth',
-      block: 'start'
+      block: 'start',
     });
   };
 
-  const handleChoseBurger = (item) => {
-    setIsModalOpen(true);
-    setBurger(item);
-  };
+  useScroll(tabRefs, containerRef, setCurrentTab, tabs);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleChoseBurger = (item: IngredientType) => {
+    navigate(`/ingredients/${item._id}`, {
+      state: {
+        backgroundLocation: location,
+        ingredient: item,
+      },
+    });
   };
 
   const groupData = data.reduce(
-    (acc, current) => {
+    (acc: any, current) => {
       tabs.forEach(({ type }) => {
         if (acc[type] && type === current.type) {
           acc[type].push(current);
@@ -57,23 +58,9 @@ const BurgerIngredients = () => {
     { bun: [], sauce: [], main: [] }
   );
 
-  useScroll(tabRefs, containerRef, setCurrentTab, tabs);
-
   return (
     <section className={styles.main}>
-      {isModalOpen && burger && (
-        <IngredientDetails
-          onClose={closeModal}
-          image={burger.image}
-          calories={burger.calories}
-          carbohydrates={burger.carbohydrates}
-          fat={burger.fat}
-          name={burger.name}
-          proteins={burger.proteins}
-        />
-      )}
-
-      <h1 className="mt-10 mb-5 text text_type_main-large">Соберите бургер</h1>
+      <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
 
       <Tabs data={tabs} current={currentTab} onClick={handleTabChange} />
 

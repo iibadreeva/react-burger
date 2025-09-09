@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,9 +6,13 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 
 import styles from './modal.module.css';
-import PropTypes from 'prop-types';
 
-const Modal = ({ onClose, children }) => {
+type Props = {
+  onClose: () => void;
+  children: ReactNode;
+};
+
+const Modal: FC<Props> = ({ onClose, children }) => {
   return createPortal(
     <>
       <ModalOverlay onClose={onClose} />
@@ -24,13 +28,8 @@ const Modal = ({ onClose, children }) => {
         </div>
       </dialog>
     </>,
-    document.getElementById('modal')
+    document.getElementById('modal') as HTMLDivElement
   );
-};
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
 };
 
 export default Modal;

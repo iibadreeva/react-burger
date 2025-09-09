@@ -4,23 +4,21 @@ const STATUS_OK = 200;
 
 const apiCall = async <T>(path: string, options: RequestInit = {}) => {
   const defaultHeaders = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
 
   const config: RequestInit = {
     ...options,
     headers: {
       ...defaultHeaders,
-      ...options.headers
-    }
+      ...options.headers,
+    },
   };
 
-  const response = await fetch(`${baseUrl}/${path}`, config);
+  const response = await fetch(`${baseUrl}${path}`, config);
 
   if (response.status !== STATUS_OK) {
-    throw new Error(
-      `Request failed with ${response.status}: ${response.statusText}`
-    );
+    throw new Error(`Request failed with ${response.status}: ${response.statusText}`);
   }
 
   const result = await response.json();
@@ -33,23 +31,29 @@ const apiCall = async <T>(path: string, options: RequestInit = {}) => {
 };
 
 export const api = {
-  get: <T>(path: string, options?: RequestInit) =>
-    apiCall<T>(path, { ...options, method: 'GET' }),
+  get: <T>(path: string, options?: RequestInit) => apiCall<T>(path, { ...options, method: 'GET' }),
 
-  post: <T>(path: string, data: object, options?: RequestInit) =>
+  post: <T>(path: string, data: { [n: string]: string | string[] | null }, options?: RequestInit) =>
     apiCall<T>(path, {
       ...options,
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     }),
 
-  put: <T>(path: string, data: object, options?: RequestInit) =>
+  put: <T>(path: string, data: { [n: string]: string }, options?: RequestInit) =>
     apiCall<T>(path, {
       ...options,
       method: 'PUT',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+    }),
+
+  patch: <T>(path: string, data: { [n: string]: string }, options?: RequestInit) =>
+    apiCall<T>(path, {
+      ...options,
+      method: 'PATCH',
+      body: JSON.stringify(data),
     }),
 
   delete: <T>(path: string, options?: RequestInit) =>
-    apiCall<T>(path, { ...options, method: 'DELETE' })
+    apiCall<T>(path, { ...options, method: 'DELETE' }),
 };
