@@ -44,15 +44,11 @@ function App() {
               <Route
                 path={path}
                 element={
-                  isPrivate ? (
-                    <RouteComponent
-                      {...rest}
-                      isAuth={isAuth}
-                      component={withErrorBoundary(component as FC) as FC}
-                    />
-                  ) : (
-                    <Component />
-                  )
+                  <RouteComponent
+                    {...rest}
+                    isAuth={isAuth}
+                    component={withErrorBoundary(component as FC) as FC}
+                  />
                 }
               />
             );

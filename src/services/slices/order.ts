@@ -28,9 +28,9 @@ export const sendOrder = createAsyncThunk('order/sendOrder', async (ids: string[
   const data = {
     ingredients: ids,
   };
-  const options: any = {
+  const options = {
     headers: {
-      authorization: getCookie('token'),
+      authorization: getCookie('token') || '',
     },
   };
   return api.post('/orders', data, options).then(res => res?.order?.number);
