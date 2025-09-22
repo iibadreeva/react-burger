@@ -98,9 +98,9 @@ export const fetchRefreshToken = createAsyncThunk('user/fetchRefreshToken', asyn
 });
 
 export const fetchGetUser = createAsyncThunk('user/fetchGetUser', async () => {
-  const options: any = {
+  const options = {
     headers: {
-      authorization: getCookie('token'),
+      authorization: getCookie('token') || '',
     },
   };
 
@@ -112,9 +112,9 @@ export const fetchGetUser = createAsyncThunk('user/fetchGetUser', async () => {
 export const fetchUpdateUser = createAsyncThunk(
   'user/fetchUpdateUser',
   async ({ name, password, email }: RegisterType) => {
-    const options: any = {
+    const options = {
       headers: {
-        authorization: getCookie('token'),
+        authorization: getCookie('token') || '',
       },
     };
     const data: { [s: string]: string } = {
