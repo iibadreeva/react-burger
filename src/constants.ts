@@ -1,4 +1,5 @@
 export const baseUrl = 'https://norma.nomoreparties.space/api';
+export const baseUrlWs = 'wss://norma.nomoreparties.space/orders';
 
 export enum ROUTES {
   ROOT = '/',
@@ -8,7 +9,8 @@ export enum ROUTES {
   RESET_PASSWORD = '/reset-password',
   PROFILE = '/profile',
   PROFILE_ORDERS = '/profile/orders',
-  PROFILE_ORDERS_ITEM = '/profile/orders/:id.',
+  PROFILE_ORDER_ITEM = '/profile/orders/:number',
   INGREDIENTS_ITEM = '/ingredients/:id',
-  ORDER = '/order'
+  FEED = '/feed',
+  FEED_ITEM = '/feed/:number',
 }

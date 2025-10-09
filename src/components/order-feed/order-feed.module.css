@@ -1,0 +1,7 @@
+.wrap {
+    padding: 0;
+    max-height: calc(100vh - 230px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+}

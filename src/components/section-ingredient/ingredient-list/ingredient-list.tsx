@@ -1,14 +1,10 @@
 import { FC } from 'react';
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import cn from 'classnames';
 import { useDrag } from 'react-dnd';
-import {
-  Counter,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useAppSelector } from '../../../services/store';
-import { IngredientType } from '../../../utils/types';
-
+import { IngredientType } from '../../../services/types/types';
 import styles from '../section-ingredient.module.css';
 
 type Props = {
@@ -17,16 +13,16 @@ type Props = {
 };
 
 const IngredientList: FC<Props> = ({ item, handleChoseBurger }) => {
-  const { ingredients, bun } = useAppSelector((state) => state.order);
+  const { ingredients, bun } = useAppSelector(state => state.order);
 
   const { _id, name, price, image } = item;
 
   const [{ opacity }, ref] = useDrag({
     type: 'ingredient',
     item: item,
-    collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0.3 : 1
-    })
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.3 : 1,
+    }),
   });
 
   const count = ingredients.reduce(
@@ -49,16 +45,10 @@ const IngredientList: FC<Props> = ({ item, handleChoseBurger }) => {
     >
       {count > 0 && <Counter count={count} size="default" />}
 
-      <img
-        className={cn('ml-4 mr-4 mb-1', styles.image)}
-        src={image}
-        alt={name}
-      />
+      <img className={cn('mr-4 mb-1 ml-4', styles.image)} src={image} alt={name} />
 
       <div className={cn('mb-1', styles.priceBox)}>
-        <span className={cn('mr-2 text text_type_main-medium', styles.price)}>
-          {price}
-        </span>
+        <span className={cn('text text_type_main-medium mr-2', styles.price)}>{price}</span>
         <CurrencyIcon type="primary" />
       </div>
 

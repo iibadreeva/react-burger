@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { api } from '../../api/api-call';
-import { IngredientType } from '../../utils/types';
+import { fetchIngredients } from '../actions/ingredients';
+import { IngredientType } from '../types/types';
 
 type IngredientsType = {
   data: IngredientType[];
@@ -16,13 +16,6 @@ const initialState: IngredientsType = {
   isLoading: false,
   error: null,
 };
-
-export const fetchIngredients = createAsyncThunk(
-  'ingredients/fetchIngredients',
-  async (options: RequestInit = {}) => {
-    return api.get('/ingredients', options).then(ingredients => ingredients.data);
-  }
-);
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',

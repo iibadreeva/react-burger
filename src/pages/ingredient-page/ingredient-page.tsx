@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 
 import styles from '../../components/app/app.module.css';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
-import { setCurrentIngredient } from '../../services/slices/ingredients';
+import { setCurrentIngredient } from '../../services/reducers/ingredients';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 
 const IngredientPage = () => {

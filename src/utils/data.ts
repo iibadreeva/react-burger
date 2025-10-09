@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPE, IngredientType, TabType } from './types';
+import { INGREDIENT_TYPE, IngredientType, TabType } from '../services/types/types';
 
 export const data: IngredientType[] = [
   {

@@ -11,9 +11,10 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import { ROUTES } from '../../constants';
-import { addBun, addIngredient, reset, sendOrder } from '../../services/slices/order';
+import { sendOrder } from '../../services/actions/order';
+import { addBun, addIngredient, reset } from '../../services/reducers/order';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { IngredientType } from '../../utils/types';
+import { IngredientType } from '../../services/types/types';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 import IngredientList from './ingredient-list/ingredient-list';
@@ -37,6 +38,7 @@ const BurgerConstructor = () => {
     if (isAuth) {
       const ids: string[] = allItems.reduce((acc: string[], { _id }) => acc.concat(_id), []);
       setIsModalOpen(true);
+
       dispatch(sendOrder(ids));
     } else {
       navigate(ROUTES.LOGIN);

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { authFailed, fetchGetUser, fetchRefreshToken } from '../services/slices/user';
+import { fetchGetUser, fetchRefreshToken } from '../services/actions/user';
+import { authFailed } from '../services/reducers/user';
 import { useAppDispatch } from '../services/store';
 import { getCookie } from '../utils/cookie';
 

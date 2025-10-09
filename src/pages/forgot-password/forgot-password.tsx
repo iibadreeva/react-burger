@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { ROUTES } from '../../constants';
 import { useForm } from '../../hooks/use-form';
-import { fetchForgotPassword } from '../../services/slices/user';
+import { fetchForgotPassword } from '../../services/actions/user';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import styles from './forgot-password.module.css';
 

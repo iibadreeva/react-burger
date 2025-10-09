@@ -1,14 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { api } from '../../api/api-call';
-import { getCookie } from '../../utils/cookie';
+import { sendOrder } from '../actions/order';
 
 type IngredientType = {
   id: string;
   uniqueId: string;
 };
 
-type OrderType = {
+export type OrderType = {
   order: number | null;
   ingredients: IngredientType[];
   bun: string | null;
@@ -23,18 +22,6 @@ const initialState: OrderType = {
   isLoading: false,
   error: null,
 };
-
-export const sendOrder = createAsyncThunk('order/sendOrder', async (ids: string[]) => {
-  const data = {
-    ingredients: ids,
-  };
-  const options = {
-    headers: {
-      authorization: getCookie('token') || '',
-    },
-  };
-  return api.post('/orders', data, options).then(res => res?.order?.number);
-});
 
 const orderSlice = createSlice({
   name: 'order',

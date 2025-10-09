@@ -10,9 +10,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { ROUTES } from '../../constants';
 import { useForm } from '../../hooks/use-form';
-import { fetchRegister, resetLoad } from '../../services/slices/user';
+import { fetchRegister } from '../../services/actions/user';
+import { resetLoad } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { RegisterType } from '../../utils/types';
+import { RegisterType } from '../../services/types/types';
 import styles from './register.module.css';
 
 const Register = () => {

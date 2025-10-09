@@ -12,7 +12,6 @@ type PrivateRouteProps = {
 const ProtectedRouteElement: FC<PrivateRouteProps> = ({ component: Component, isAuth }) => {
   const navigate = useNavigate();
 
-  console.log('isAuth', isAuth);
   useEffect(() => {
     if (isAuth === false) {
       navigate(ROUTES.LOGIN);

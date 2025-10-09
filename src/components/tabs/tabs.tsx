@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import cn from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import cn from 'classnames';
 
-import { TabType } from '../../utils/types';
-
+import { TabType } from '../../services/types/types';
 import styles from './tabs.module.css';
 
 type Props = {
@@ -16,12 +15,7 @@ const Tabs: FC<Props> = ({ data, current, onClick }) => {
   return (
     <div className={cn('mb-10', styles.tab)}>
       {data.map(({ title, type }) => (
-        <Tab
-          key={type}
-          value={type}
-          active={current === type}
-          onClick={onClick}
-        >
+        <Tab key={type} value={type} active={current === type} onClick={onClick}>
           {title}
         </Tab>
       ))}
