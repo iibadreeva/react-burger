@@ -14,7 +14,7 @@ const OrderFeedItem: FC<Props> = ({ handleChoseFeed, data }) => {
   const { createdAt, name, number, status, ingredients } = data;
 
   const sum = useMemo(
-    () => ingredients.reduce((accumulate, { price }) => accumulate + price, 0),
+    () => ingredients.reduce((accumulate: any, { price }: any) => accumulate + price, 0),
     [ingredients]
   );
 

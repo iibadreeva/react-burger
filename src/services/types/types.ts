@@ -20,6 +20,7 @@ export type IngredientType = {
   type: INGREDIENT_TYPE;
   uniqueId?: string;
   index?: number;
+  count?: number;
 };
 
 export type TabType = {

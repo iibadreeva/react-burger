@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import cn from 'classnames';
 
-import { OrderType } from '../../services/types/types';
+import { IngredientType, OrderType } from '../../services/types/types';
 import styles from './order-info.module.css';
 
 type Props = {
@@ -13,10 +13,29 @@ type Props = {
 const OrderInfo: FC<Props> = ({ isPage, data }) => {
   const { createdAt, name, number, status, ingredients } = data;
 
-  const sum = useMemo(
-    () => ingredients.reduce((accumulate: any, { price }: any) => accumulate + price, 0),
-    [ingredients]
-  );
+  const { sum, newIngredients } = useMemo(() => {
+    const sum = ingredients.reduce((accumulate, { price }) => accumulate + price, 0);
+    const newIngredients = ingredients.reduce((acc: IngredientType[], current) => {
+      const inx = acc.findIndex(it => current['_id'] === it._id);
+
+      if (inx !== -1) {
+        const newItem = { ...acc[inx] };
+
+        if (newItem.count) {
+          newItem.count++;
+        }
+        acc[inx] = newItem;
+      } else {
+        const newItem = { ...current };
+        newItem.count = 1;
+        acc.push(newItem);
+      }
+
+      return acc;
+    }, []);
+
+    return { sum, newIngredients };
+  }, [ingredients]);
 
   return (
     <div
@@ -43,14 +62,16 @@ const OrderInfo: FC<Props> = ({ isPage, data }) => {
       </header>
 
       <ul className={cn('mb-10', styles.lists)}>
-        {ingredients.map((item: any, inx: number) => (
+        {newIngredients.map((item: any, inx: number) => (
           <li key={inx} className={styles.list}>
             <div className={styles.wrapImg}>
               <img className={styles.image} src={item.image_mobile} alt={item.name} />
             </div>
             <p className={cn('text text_type_main-default ml-4', styles.text)}>{item.name}</p>
             <div className={styles.price}>
-              <div className="text text_type_main-default">{item.price}</div>
+              <div className="text text_type_main-default">
+                {item.count} x {item.price * item.count}
+              </div>
               <CurrencyIcon className={cn('ml-5', styles.icon)} type={'primary'} />
             </div>
           </li>
