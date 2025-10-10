@@ -5,14 +5,14 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../components/loading/loading';
 import ProfileMenu from '../../components/profile-menu/profile-menu';
 import { useForm } from '../../hooks/use-form';
-import { fetchUpdateUser, resetLoad } from '../../services/slices/user';
+import { fetchUpdateUser } from '../../services/actions/user';
+import { resetLoad } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { RegisterType } from '../../utils/types';
+import { RegisterType } from '../../services/types/types';
 import styles from './profile.module.css';
 
 const Profile = () => {

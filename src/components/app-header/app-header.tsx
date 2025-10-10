@@ -23,7 +23,7 @@ const AppHeader = () => {
             </IconLink>
           </li>
           <li>
-            <IconLink path={ROUTES.ORDER} className="mr-2" Icon={ListIcon}>
+            <IconLink path={ROUTES.FEED} className="mr-2" Icon={ListIcon}>
               Лента заказов
             </IconLink>
           </li>

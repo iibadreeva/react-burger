@@ -1,0 +1,8 @@
+.wrap {
+    display: flex;
+    min-height: calc(100vh - 96px - 100px);
+    justify-content: center;
+    padding-top: 100px;
+    width: 90%;
+    margin: auto;
+}

@@ -9,9 +9,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { ROUTES } from '../../constants';
 import { useForm } from '../../hooks/use-form';
-import { fetchLogin } from '../../services/slices/user';
+import { fetchLogin } from '../../services/actions/user';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { LoginType } from '../../utils/types';
+import { LoginType } from '../../services/types/types';
 import styles from './login.module.css';
 
 const Login = () => {

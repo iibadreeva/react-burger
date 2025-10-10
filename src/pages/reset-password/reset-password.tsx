@@ -5,9 +5,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { ROUTES } from '../../constants';
 import { useForm } from '../../hooks/use-form';
-import { fetchResetPassword, reset } from '../../services/slices/user';
+import { fetchResetPassword } from '../../services/actions/user';
+import { reset } from '../../services/reducers/user';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { ResetPasswordType } from '../../utils/types';
+import { ResetPasswordType } from '../../services/types/types';
 import styles from './reset-password.module.css';
 
 const ResetPassword = () => {

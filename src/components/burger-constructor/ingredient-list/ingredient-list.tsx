@@ -1,18 +1,11 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import cn from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
-import {
-  ConstructorElement,
-  DragIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {
-  moveIngredient,
-  removeIngredient
-} from '../../../services/slices/order';
+import { moveIngredient, removeIngredient } from '../../../services/reducers/order';
 import { useAppDispatch } from '../../../services/store';
-import { IngredientType } from '../../../utils/types';
-
+import { IngredientType } from '../../../services/types/types';
 import styles from '../burger-constructor.module.css';
 
 type Props = {
@@ -38,25 +31,21 @@ const IngredientList: FC<Props> = ({ item, index }) => {
 
       dispatch(moveIngredient({ dragIndex, hoverIndex }));
       item.index = hoverIndex;
-    }
+    },
   });
 
   const [{ opacity }, drag] = useDrag({
     type: 'move',
     item: { index },
-    collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0.3 : 1
-    })
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.3 : 1,
+    }),
   });
 
   drag(drop(ref));
 
   return (
-    <li
-      className={styles.list}
-      ref={type !== 'bun' ? ref : null}
-      style={{ opacity }}
-    >
+    <li className={styles.list} ref={type !== 'bun' ? ref : null} style={{ opacity }}>
       <DragIcon className={cn('mr-2', styles.iconDrag)} type="primary" />
 
       <ConstructorElement

@@ -8,13 +8,13 @@
 }
 
 .list {
+    text-decoration: none;
     height: 64px;
     line-height: 64px;
     color: var(--text-primary-color);
 }
 
 .link {
-    text-decoration: none;
     cursor: pointer;
     color: var(--text-inactive-color);
     transition: .3s all ease-in;

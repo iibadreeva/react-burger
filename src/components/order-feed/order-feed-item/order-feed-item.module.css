@@ -1,0 +1,65 @@
+.wrap {
+    padding: 1.5rem 2rem;
+    background-color: #1c1c21;
+    border-radius: 40px;
+    list-style-type: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 36px;
+    height: 36px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.images {
+    flex: 1 1 auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.image {
+    height: 64px;
+    object-fit: cover;
+    width: 64px;
+    margin: auto;
+}
+
+.list {
+    align-items: center;
+    background-color: #131313;
+    border: 1px solid #8a8af5;
+    height: 66px;
+    width: 66px;
+    border-radius: 50%;
+    display: flex;
+}
+
+.list:not(:first-child) {
+    margin-left: -15px;
+}
+
+.price {
+    display: flex;
+}
+
+.red {
+    color: #ab2e2e;
+}
+
+.green {
+    color: #0cc;
+}

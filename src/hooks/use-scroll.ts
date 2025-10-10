@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { TabType } from '../utils/types';
+import { TabType } from '../services/types/types';
 
 export const useScroll = (
   refs: any,

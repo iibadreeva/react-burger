@@ -1,0 +1,48 @@
+.page {
+    width: 100%;
+}
+
+.wrap {
+    display: flex;
+}
+
+.content {
+    padding: 1rem 1rem 1rem 3rem;
+    flex: 1 1 auto;
+}
+
+.columns {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+}
+
+.column {
+    flex: 1 1 auto;
+}
+
+.orders {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.green {
+    color: #0cc;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.loading {
+    padding: 0;
+    max-height: calc(100vh - 230px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+}
+

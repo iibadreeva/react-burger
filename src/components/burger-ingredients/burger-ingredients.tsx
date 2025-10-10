@@ -4,8 +4,8 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { useScroll } from '../../hooks/use-scroll';
 import { useAppSelector } from '../../services/store';
+import { IngredientType } from '../../services/types/types';
 import { tabs } from '../../utils/data';
-import { IngredientType } from '../../utils/types';
 import SectionIngredient from '../section-ingredient/section-ingredient';
 import Tabs from '../tabs/tabs';
 import styles from './burger-ingredients.module.css';

@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { ROUTES } from '../../constants';
-import { fetchLogout } from '../../services/slices/user';
+import { fetchLogout } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/store';
 import styles from './profile-menu.module.css';
 
@@ -16,14 +16,32 @@ const ProfileMenu = () => {
   return (
     <aside className={cn('mr-15', styles.aside)}>
       <nav className={cn('mb-20', styles.nav)}>
-        <li className={cn('text text_type_main-medium', styles.list)}>Профиль</li>
         <li>
-          <Link
+          <NavLink
+            to={ROUTES.PROFILE}
+            className={({ isActive }) =>
+              cn('text text_type_main-medium', styles.list, {
+                [styles.link]: isActive,
+                [styles.link]: !isActive,
+              })
+            }
+            end
+          >
+            Профиль
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to={ROUTES.PROFILE_ORDERS}
-            className={cn('text text_type_main-medium', styles.list, styles.link)}
+            className={({ isActive }) =>
+              cn('text text_type_main-medium', styles.list, {
+                [styles.link]: isActive,
+                [styles.link]: !isActive,
+              })
+            }
           >
             История заказов
-          </Link>
+          </NavLink>
         </li>
         <li
           className={cn('text text_type_main-medium', styles.list, styles.link)}

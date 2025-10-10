@@ -4,6 +4,8 @@ export const enum INGREDIENT_TYPE {
   Main = 'main',
 }
 
+export type OrderStatus = 'done' | 'pending' | 'created';
+
 export type IngredientType = {
   _id: string;
   carbohydrates: number;
@@ -18,6 +20,7 @@ export type IngredientType = {
   type: INGREDIENT_TYPE;
   uniqueId?: string;
   index?: number;
+  count?: number;
 };
 
 export type TabType = {
@@ -45,3 +48,22 @@ export type ResetPasswordType = {
   password: string;
   token: string;
 };
+
+export type OrderType = {
+  createdAt: string;
+  ingredients: IngredientType[];
+  name: string;
+  number: number;
+  status: OrderStatus;
+  updatedAt: string;
+  _id: string;
+};
+
+export type OrderResponseType = {
+  orders: OrderType[];
+  success: boolean;
+  total: number;
+  totalToday: number;
+};
+
+export type OrderWithIngredients = Omit<OrderType, 'ingredients'>;

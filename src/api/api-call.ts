@@ -2,6 +2,7 @@ import { baseUrl } from '../constants';
 
 const STATUS_OK = 200;
 
+// eslint-disable-next-line
 const apiCall = async <T>(path: string, options: RequestInit = {}) => {
   const defaultHeaders = {
     'Content-Type': 'application/json',
