@@ -20,7 +20,7 @@ const SectionIngredient: FC<Props> = ({ data, title, currentTab, tabRefs, handle
         {title}
       </h3>
 
-      <ul className={cn('pt-6 pr-4 pb-10 pl-4', styles.content)}>
+      <ul className={cn('pt-6 pr-4 pb-10 pl-4', styles.content)} data-testid={currentTab}>
         {data[currentTab].map((item: IngredientType) => (
           <IngredientList key={item._id} item={item} handleChoseBurger={handleChoseBurger} />
         ))}

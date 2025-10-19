@@ -42,6 +42,7 @@ const IngredientList: FC<Props> = ({ item, handleChoseBurger }) => {
       onClick={() => handleChoseBurger(item)}
       style={{ opacity }}
       ref={ref as any}
+      data-testid={_id}
     >
       {count > 0 && <Counter count={count} size="default" />}
 

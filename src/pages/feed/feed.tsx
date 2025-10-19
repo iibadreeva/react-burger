@@ -2,9 +2,13 @@ import React, { useEffect, useMemo } from 'react';
 import cn from 'classnames';
 import { useLocation, useNavigate } from 'react-router';
 
+import Loading from '../../components/loading/loading';
 import OrderFeed from '../../components/order-feed/order-feed';
 import { baseUrlWs, ROUTES } from '../../constants';
-import { ordersAllConnect, ordersAllDisconnect } from '../../services/reducers/orders-all/actions';
+import {
+  ordersAllConnect,
+  ordersAllDisconnect,
+} from '../../services/reducers/orders-all/constants';
 import {
   ordersAllResponseSelector,
   ordersAllSelector,
@@ -58,11 +62,7 @@ const Feed = () => {
     <div className={styles.page}>
       <h1 className="text text_type_main-large mt-10 mb-5">Лента заказов</h1>
       <div className={styles.wrap}>
-        {!ordersAll.length && (
-          <h3 className={cn('text text_type_digits-medium mt-10 mb-5', styles.loading)}>
-            Загрузка...
-          </h3>
-        )}
+        {!ordersAll.length && <Loading />}
         <OrderFeed data={ordersAll} handleChoseFeed={handleChoseFeed} />
 
         <section className={styles.content}>

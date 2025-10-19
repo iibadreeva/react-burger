@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 
 import styles from '../../components/app/app.module.css';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
+import Loading from '../../components/loading/loading';
 import { setCurrentIngredient } from '../../services/reducers/ingredients';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 
@@ -25,15 +26,7 @@ const IngredientPage = () => {
       </section>
     );
   }
-  return (
-    <>
-      {isLoading ? (
-        <h3 className="text text_type_digits-medium mt-10 mb-5">Загрузка...</h3>
-      ) : (
-        <IngredientDetails isPage />
-      )}
-    </>
-  );
+  return <>{isLoading ? <Loading /> : <IngredientDetails isPage />}</>;
 };
 
 export default IngredientPage;

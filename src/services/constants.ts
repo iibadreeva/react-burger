@@ -7,7 +7,7 @@ import {
   ordersAllOnError,
   ordersAllOnMessage,
   ordersAllOnOpen,
-} from './reducers/orders-all/actions';
+} from './reducers/orders-all/constants';
 import {
   ordersConnect,
   ordersDisconnect,
@@ -16,7 +16,7 @@ import {
   ordersOnError,
   ordersOnMessage,
   ordersOnOpen,
-} from './reducers/orders/actions';
+} from './reducers/orders/constants';
 
 export const ordersAllMiddleware = socketMiddleware({
   connect: ordersAllConnect,

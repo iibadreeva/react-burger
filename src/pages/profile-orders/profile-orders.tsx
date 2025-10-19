@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
+import Loading from '../../components/loading/loading';
 import OrderFeed from '../../components/order-feed/order-feed';
 import ProfileMenu from '../../components/profile-menu/profile-menu';
 import { baseUrlWs, ROUTES } from '../../constants';
-import { ordersConnect, ordersDisconnect } from '../../services/reducers/orders/actions';
+import { ordersConnect, ordersDisconnect } from '../../services/reducers/orders/constants';
 import { ordersSelector } from '../../services/reducers/orders/slice';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { OrderType } from '../../services/types/types';
@@ -39,7 +40,7 @@ const ProfileOrders = () => {
   return (
     <section className={styles.wrap}>
       <ProfileMenu />
-      {!orders.length && <h3 className="text text_type_digits-medium mt-10 mb-5">Загрузка...</h3>}
+      {!orders.length && <Loading />}
       <OrderFeed data={orders} handleChoseFeed={handleChoseFeed} />
     </section>
   );

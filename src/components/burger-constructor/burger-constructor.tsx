@@ -78,7 +78,12 @@ const BurgerConstructor = () => {
       allItems.unshift(bunItem);
     }
 
-    const sum = allItems.reduce((acc, current) => acc + current.price, 0);
+    const sum = allItems.reduce((acc, current) => {
+      if (current.type === 'bun') {
+        return acc + current.price * 2;
+      }
+      return acc + current.price;
+    }, 0);
 
     return {
       items,
@@ -93,7 +98,11 @@ const BurgerConstructor = () => {
         <OrderDetails onClose={closeModal} number={order} />
       )}
 
-      <ul ref={dropTarget as any} className={cn('custom-scroll mt-4 mb-10', styles.content)}>
+      <ul
+        ref={dropTarget as any}
+        className={cn('custom-scroll mt-4 mb-10', styles.content)}
+        data-testid="drop"
+      >
         {!bun && <li className={cn('mb-2', styles.titleList)}>перенесите сюда булки</li>}
         {ingredients.length === 0 && (
           <li className={cn('mb-2', styles.titleList)}>перенесите сюда ингредиенты</li>

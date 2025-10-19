@@ -13,7 +13,7 @@ type Props = {
 
 const Tabs: FC<Props> = ({ data, current, onClick }) => {
   return (
-    <div className={cn('mb-10', styles.tab)}>
+    <div className={cn('mb-10', styles.tab)} data-testid="tabs">
       {data.map(({ title, type }) => (
         <Tab key={type} value={type} active={current === type} onClick={onClick}>
           {title}
