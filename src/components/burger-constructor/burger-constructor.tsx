@@ -141,8 +141,10 @@ const BurgerConstructor = () => {
         {error && <li className={cn('mb-2', styles.titleList)}>{error}</li>}
       </ul>
 
-      <footer className={styles.footer}>
-        <div className="text text_type_digits-medium">{sum}</div>
+      <footer className={styles.footer} data-testid="footer-burger-constructor">
+        <div className="text text_type_digits-medium" data-testid="sum-burger-constructor">
+          {sum}
+        </div>
         <CurrencyIcon className={cn('mr-10 ml-2', styles.icon)} type={'primary'} />
         <Button
           htmlType="button"

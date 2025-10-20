@@ -29,7 +29,7 @@ const AppHeader = () => {
           </li>
         </nav>
 
-        <Link to={ROUTES.ROOT}>
+        <Link to={ROUTES.ROOT} data-testid="logo">
           <Logo />
         </Link>
 

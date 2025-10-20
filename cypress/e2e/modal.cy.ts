@@ -1,28 +1,39 @@
+import {
+  FEED_LIST,
+  INGREDIENT_BUN,
+  MODAL,
+  MODAL_CLOSE,
+  MODAL_DIALOG,
+  URL_FEED,
+  URL_FEED_CURRENT,
+  URL_INGREDIENT_CURRENT,
+  URL_MAIN,
+} from '../support/constants';
+
 describe('modal on the page', () => {
   it('Modal Opening and close on constructor page', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit(URL_MAIN);
 
-    cy.get('[data-testid="bun"] li:nth-child(1)').as('bun');
+    cy.get(INGREDIENT_BUN).first().click();
+    cy.get(MODAL).contains('Детали ингредиента');
+    cy.url().should('include', URL_INGREDIENT_CURRENT);
 
-    cy.get('@bun').click();
-    cy.get('#modal').contains('Детали ингредиента');
-    cy.url().should('include', '/ingredients/');
+    cy.get(MODAL_CLOSE).click();
+    cy.get(MODAL_DIALOG).should('not.exist');
 
-    cy.get('#modal [class*=modal_close__]').click();
-    cy.get('#modal').contains('Детали ингредиента').should('not.exist');
-    cy.url().should('include', '/');
+    cy.url().should('include', URL_MAIN);
   });
 
   it('Modal Opening and close on feed page', () => {
-    cy.visit('http://localhost:3000/feed');
+    cy.visit(URL_FEED);
 
-    cy.get('[class*=order-feed_wrap__] li').first().click();
-    cy.get('dialog').should('exist');
+    cy.get(FEED_LIST).first().click();
+    cy.get(MODAL_DIALOG).should('exist');
 
-    cy.url().should('include', '/feed/');
+    cy.url().should('include', URL_FEED_CURRENT);
 
-    cy.get('#modal [class*=modal_close__]').click();
-    cy.get('dialog').should('not.exist');
-    cy.url().should('include', '/feed');
+    cy.get(MODAL_CLOSE).click();
+    cy.get(MODAL_DIALOG).should('not.exist');
+    cy.url().should('include', URL_FEED);
   });
 });

@@ -78,7 +78,7 @@ const OrderInfo: FC<Props> = ({ isPage, data }) => {
         ))}
       </ul>
 
-      <footer className={styles.footer}>
+      <footer className={styles.footer} data-testid="footer-order-info">
         <FormattedDate
           className="text text_type_main-default text_color_inactive"
           date={new Date(createdAt)}

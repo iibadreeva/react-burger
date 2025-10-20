@@ -1,35 +1,38 @@
+import {
+  INGREDIENT_BUN,
+  INGREDIENT_BUTTON,
+  INGREDIENT_COUNTER,
+  INGREDIENT_DROP,
+  INGREDIENT_MAIN,
+  INGREDIENT_PRICE,
+  INGREDIENT_SAUCE,
+} from '../support/constants';
+
 describe('drag and drop on the main page', function () {
-  beforeEach(function () {
-    cy.visit('http://localhost:3000');
-  });
+  it('should redirect to /login if no auth after order', () => {
+    cy.intercept('GET', '**/ingredients', { fixture: 'ingredients.json' }).as('getIngredients');
+    cy.visit('/');
+    cy.wait('@getIngredients', { timeout: 10000 });
 
-  it('should drop', () => {
-    cy.get('footer button').as('button');
-    cy.get('@button').should('be.disabled');
+    cy.get(INGREDIENT_BUTTON).should('be.disabled');
 
-    cy.get('[data-testid="bun"] li:nth-child(1)').as('bun');
-    cy.get('[data-testid="sauce"] li:nth-child(2)').as('sauce');
-    cy.get('[data-testid="sauce"] li:nth-child(4)').as('sauce2');
-    cy.get('[data-testid="main"] li:nth-child(2)').as('main');
-    cy.get('[data-testid="drop"]').as('drop');
-    cy.get('footer .text_type_digits-medium').as('price');
+    cy.get(INGREDIENT_BUN).first().drag(INGREDIENT_DROP);
+    cy.get(INGREDIENT_SAUCE).first().drag(INGREDIENT_DROP);
+    cy.get(INGREDIENT_MAIN).first().drag(INGREDIENT_DROP);
+    cy.get(INGREDIENT_SAUCE).first().drag(INGREDIENT_DROP);
+    cy.get(INGREDIENT_MAIN).first().drag(INGREDIENT_DROP);
 
-    cy.get('@bun').drag('@drop');
-    cy.get('@sauce').drag('@drop');
-    cy.get('@sauce2').drag('@drop');
-    cy.get('@main').drag('@drop');
+    cy.get(INGREDIENT_BUN).first().find('.counter__num').contains(1);
+    cy.get(INGREDIENT_SAUCE).first().find('.counter__num').contains(2);
+    cy.get(INGREDIENT_MAIN).first().find('.counter__num').contains(2);
 
-    cy.get('@bun').find('.counter__num').contains(1);
-    cy.get('@sauce').find('.counter__num').contains(1);
-    cy.get('@sauce2').find('.counter__num').contains(1);
-    cy.get('@main').find('.counter__num').contains(1);
+    cy.get(INGREDIENT_DROP).find('li').should('have.length', 6);
+    cy.get(INGREDIENT_COUNTER).should('have.length', 3);
 
-    cy.get('@drop').find('li').should('have.length', 5);
-    cy.get('.counter__num').should('have.length', 4);
-    cy.get('@price').contains('3666');
+    cy.get(INGREDIENT_PRICE).contains(3538);
 
-    cy.get('@button').should('not.be.disabled');
-    cy.get('@button').click();
+    cy.get(INGREDIENT_BUTTON).should('not.be.disabled');
+    cy.get(INGREDIENT_BUTTON).click();
 
     cy.url().should('include', '/login');
   });

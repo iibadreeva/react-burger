@@ -11,7 +11,7 @@ type Props = {
 
 const OrderFeed: FC<Props> = ({ handleChoseFeed, data }) => {
   return (
-    <ul className={styles.wrap}>
+    <ul className={styles.wrap} data-testid="feed-lists">
       {data.map(item => (
         <OrderFeedItem key={item._id} data={item} handleChoseFeed={handleChoseFeed} />
       ))}

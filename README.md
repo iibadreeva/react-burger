@@ -17,6 +17,7 @@
 Запуск тестов jest
 ### `npm run test`
 Запуск тестов на cypress
+### `npm run test:cypress`
 ### `npx cypress open`
 
 ### Добавляем скрипт для деплоя на GitHub Pages
