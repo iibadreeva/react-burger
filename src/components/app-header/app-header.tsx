@@ -16,7 +16,7 @@ const AppHeader = () => {
   return (
     <header className={cn('pt-4 pb-4', styles.header)}>
       <div className={styles.inner}>
-        <nav className={styles.nav}>
+        <nav className={styles.nav} test-id="nav">
           <li>
             <IconLink path={ROUTES.ROOT} className="mr-2" Icon={BurgerIcon}>
               Конструктор
@@ -29,7 +29,7 @@ const AppHeader = () => {
           </li>
         </nav>
 
-        <Link to={ROUTES.ROOT}>
+        <Link to={ROUTES.ROOT} data-testid="logo">
           <Logo />
         </Link>
 

@@ -2,14 +2,14 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
 import { OrderResponseType, OrderWithIngredients } from '../../types/types';
-import { ingredientsMapSelector } from '../ingredients-slice';
-import { ordersAllOnMessage } from './actions';
+import { ingredientsMapSelector } from '../ingredients';
+import { ordersAllOnMessage } from './constants';
 
 export interface OrdersAllState {
   ordersResponse: OrderResponseType | null;
 }
 
-const initialState: OrdersAllState = {
+export const initialState: OrdersAllState = {
   ordersResponse: null,
 };
 

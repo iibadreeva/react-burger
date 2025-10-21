@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 import cn from 'classnames';
 import { NavLink, useLocation } from 'react-router-dom';
-import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 
 import styles from './icon-link.module.css';
 
@@ -14,19 +14,21 @@ type Props = {
 
 const IconLink: FC<Props> = ({ children, path, className, Icon }) => {
   const { pathname } = useLocation();
+  const testPath = path.slice(1);
 
   return (
     <NavLink
       className={({ isActive }) =>
         cn('p-5', className, styles.link, {
           [styles.primary]: !isActive,
-          [styles.secondary]: isActive
+          [styles.secondary]: isActive,
         })
       }
       to={path}
+      data-testid={`nav-${testPath ? testPath : 'main'}`}
     >
       <Icon type={pathname === path ? 'secondary' : 'primary'} />
-      <span className={cn('pl-2 text_type_main-default')}>{children}</span>
+      <span className={cn('text_type_main-default pl-2')}>{children}</span>
     </NavLink>
   );
 };

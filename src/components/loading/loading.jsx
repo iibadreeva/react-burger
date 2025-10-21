@@ -1,7 +1,7 @@
 import styles from './loading.module.css';
 
 const Loading = () => (
-  <div className={styles.loading}>
+  <div className={styles.loading} role="progressbar">
     <svg
       className={styles.svg}
       width="37"

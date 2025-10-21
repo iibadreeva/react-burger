@@ -16,12 +16,14 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
-    "allowRegexCharacters": false
+//    "allowRegexCharacters": false
   },
+  "types": ["cypress", "@testing-library/cypress", "node" ],
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["cypress", "node_modules"]
 }

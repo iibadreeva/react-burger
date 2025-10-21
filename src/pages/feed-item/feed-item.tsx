@@ -1,9 +1,13 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router';
 
+import Loading from '../../components/loading/loading';
 import OrderInfo from '../../components/order-info/order-info';
 import { baseUrlWs } from '../../constants';
-import { ordersAllConnect, ordersAllDisconnect } from '../../services/reducers/orders-all/actions';
+import {
+  ordersAllConnect,
+  ordersAllDisconnect,
+} from '../../services/reducers/orders-all/constants';
 import { ordersAllSelector } from '../../services/reducers/orders-all/slice';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { OrderType } from '../../services/types/types';
@@ -30,7 +34,7 @@ const FeedItem: FC<Props> = ({ isPage }) => {
   }, [dispatch, order]);
 
   if (!order) {
-    return <h3 className="text text_type_digits-medium mt-10 mb-5">Загрузка...</h3>;
+    return <Loading />;
   }
 
   return <OrderInfo isPage data={order} />;

@@ -20,7 +20,7 @@ type UserInitialType = {
   error: string | null;
 };
 
-const initialState: UserInitialType = {
+export const initialState: UserInitialType = {
   isAuth: null,
   isLoginRequest: false,
   user: null,

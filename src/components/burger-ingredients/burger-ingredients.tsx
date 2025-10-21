@@ -64,7 +64,11 @@ const BurgerIngredients = () => {
 
       <Tabs data={tabs} current={currentTab} onClick={handleTabChange} />
 
-      <div className={cn('custom-scroll', styles.wrap)} ref={containerRef}>
+      <div
+        className={cn('custom-scroll', styles.wrap)}
+        ref={containerRef}
+        data-testid="drap-burger-constructor"
+      >
         {tabs.map(({ title, type }) => (
           <SectionIngredient
             key={type}

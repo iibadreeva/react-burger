@@ -15,7 +15,7 @@ export type OrderType = {
   error: string | null;
 };
 
-const initialState: OrderType = {
+export const initialState: OrderType = {
   order: null,
   ingredients: [],
   bun: null,
