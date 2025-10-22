@@ -1,5 +1,5 @@
-export const baseUrl = 'https://norma.nomoreparties.space/api';
-export const baseUrlWs = 'wss://norma.nomoreparties.space/orders';
+export const baseUrl = 'https://norma.education-services.ru/api';
+export const baseUrlWs = 'wss://norma.education-services.ru/orders';
 
 export enum ROUTES {
   ROOT = '/',
